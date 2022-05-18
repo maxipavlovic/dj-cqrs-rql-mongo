@@ -13,9 +13,19 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path
+from django.urls import include, path
+
+from django_mongoengine import mongo_admin
+
+from rest_framework import routers
+
+from cqrs_rql_mongo.api.views import PostViewSet
+
+
+router = routers.SimpleRouter()
+router.register(r'posts', PostViewSet)
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('mongo/', mongo_admin.site.urls),
+    path('', include(router.urls)),
 ]

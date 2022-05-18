@@ -3,11 +3,16 @@ This PoC was needed to check if Django-CQRS or Django-RQL can work with Django-M
 Verdict:
 * Django-CQRS can work with slight modifications
 * Django-RQL doesn't work at all and a separate library must be developed
+* DRF works okay, with some limitations (e.x. on serialization)
+* Django admin works poorly
 
 Requirements
 ==========
 
 Python 3.10
+```commandline
+pip install -r requirements.txt
+```
 
 
 Trying out
@@ -25,8 +30,13 @@ MONGODB_DATABASES = {
     },
 }
 ```
+
 2. Play around in Django shell:
 ```commandline
-pip install -r requirements.txt
 python manage.py shell
+```
+
+3. Or with APIs and Admin (admin superuser must be created):
+```commandline
+python manage.py runserver
 ```

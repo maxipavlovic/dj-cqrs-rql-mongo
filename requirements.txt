@@ -3,3 +3,4 @@ django-rql
 django-cqrs
 django-mongoengine
 dnspython
+djangorestframework

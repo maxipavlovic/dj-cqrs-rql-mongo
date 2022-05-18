@@ -26,7 +26,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -36,6 +35,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_mongoengine',
+    'django_mongoengine.mongo_admin',
     'cqrs_rql_mongo',
 ]
 
@@ -73,6 +74,18 @@ WSGI_APPLICATION = 'example.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+USE_TZ = True
+
+MONGODB_DATABASES = {
+    'default': {
+        'name': os.environ.get('MONGO_NAME'),
+        'host': os.environ.get('MONGO_HOST'),
+        'password': os.environ.get('MONGO_PASSWORD'),
+        'username': os.environ.get('MONGO_USER'),
+        'tz_aware': USE_TZ,
+    },
+}
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -109,8 +122,6 @@ TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
-USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
@@ -121,19 +132,6 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-
-MONGODB_DATABASES = {
-    'default': {
-        'name': os.environ.get('MONGO_NAME'),
-        'host': os.environ.get('MONGO_HOST'),
-        'password': os.environ.get('MONGO_PASSWORD'),
-        'username': os.environ.get('MONGO_USER'),
-        'tz_aware': USE_TZ,
-    },
-}
-
-INSTALLED_APPS += ['django_mongoengine']
 
 CQRS = {
     'transport': 'cqrs_rql_mongo.cqrs_transport.TransportStub',
